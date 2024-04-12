@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-/*@import "~bootstrap/dist/css/bootstrap.min.css";*/
+/*@import "~bootstrap/dist/css/bootstrap.min.css";
 
-@import "./bootstrap_sandstone/bootstrap.min.css";
+@import "./bootstrap/bootstrap.min.css";*/
+
+.main {
+    /*background-image: url('path/to/your/image.jpg');*/
+    
+    background-size: cover;
+    background-position: center;
+}
+
 

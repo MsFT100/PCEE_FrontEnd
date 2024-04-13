@@ -6,15 +6,17 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 
 export const routes: Routes = [
-    {path: '', component:WelcomePageComponent},
+    {path: 'home', component:WelcomePageComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'signup', component: SignupComponent},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'vehicle', component: VehicleComponent},
+    {path: 'add-vehicle', component: VehicleFormComponent},
     {path: 'settings', component: AccountSettingsComponent},
-    //{path: '', redirectTo: '/signin', pathMatch: 'full'},
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: '**', component: PageNotFoundComponent}
 ];
 

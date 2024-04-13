@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-12">
+      <div>
+        <a routerLink="/vehicle" class="btn btn-outline-primary my-3 mx-4">Go Back</a>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h4>Add a Vehicle</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="manufacturer">Manufacturer</label>
+                <input type="text" class="form-control" id="manufacturer" [(ngModel)]="formData.manufacturer" name="manufacturer">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" [(ngModel)]="formData.model" name="model">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" id="year" [(ngModel)]="formData.year" name="year">
+              </div>         
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="vehicle_type">Vehicle Type</label>
+                <input type="text" class="form-control" id="vehicle_type" [(ngModel)]="formData.vehicle_type" name="vehicle_type">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="fuel_id">Fuel ID</label>
+                <input type="text" class="form-control" id="fuel_id" [(ngModel)]="formData.fuel_id" name="fuel_id">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="transmission">Transmission</label>
+                <input type="text" class="form-control" id="transmission" [(ngModel)]="formData.transmission" name="transmission">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="eng_displacement">Engine Displacement</label>
+                <input type="text" class="form-control" id="eng_displacement" [(ngModel)]="formData.eng_displacement" name="eng_displacement">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="vehicle_color">Vehicle Color</label>
+                <input type="text" class="form-control" id="vehicle_color" [(ngModel)]="formData.vehicle_color" name="vehicle_color">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="vehicle_reg_no">Vehicle Registration No</label>
+                <input type="text" class="form-control" id="vehicle_reg_no" [(ngModel)]="formData.vehicle_reg_no" name="vehicle_reg_no">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="number_plate">Number Plate</label>
+                <input type="text" class="form-control" id="number_plate" [(ngModel)]="formData.number_plate" name="number_plate">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="custom_name">Custom Name</label>
+                <input type="text" class="form-control" id="custom_name" [(ngModel)]="formData.custom_name" name="custom_name">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="vehicle_ident_no">Vehicle Identification No</label>
+                <input type="text" class="form-control" id="vehicle_ident_no" [(ngModel)]="formData.vehicle_ident_no" name="vehicle_ident_no">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="device_number">Device Number</label>
+                <input type="text" class="form-control" id="device_number" [(ngModel)]="formData.device_number" name="device_number">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="device_name">Device Name</label>
+                <input type="text" class="form-control" id="device_name" [(ngModel)]="formData.device_name" name="device_name">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="device_sim">Device SIM</label>
+                <input type="text" class="form-control" id="device_sim" [(ngModel)]="formData.device_sim" name="device_sim">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="form-group col-md-4 col-md-4">
+                <label for="protocol_header">Protocol Header</label>
+                <input type="text" class="form-control" id="protocol_header" [(ngModel)]="formData.protocol_header" name="protocol_header">
+              </div>
+            </div>
+            
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary ">Submit</button>
+            </div>
+            
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  

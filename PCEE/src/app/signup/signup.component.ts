@@ -35,6 +35,7 @@ interface SignupErrorResponse {
 export class SignupComponent {
   formData: any = {};
   errorMessage: string | null = null;
+  
 
   constructor(private http: HttpClient, private router: Router) {}
 

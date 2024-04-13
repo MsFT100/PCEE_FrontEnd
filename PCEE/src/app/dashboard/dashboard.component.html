@@ -8,22 +8,33 @@
         <div class="page-header">
             <h1>Welcome to your dashboard</h1>
             <div class="card">
-                <div class="card-header">Big Card 1</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="card">
+                                <div class="card-header">Car Count</div>
                                 <div class="card-body">
-                                    Small Card 1
+                                  <p>Number of Cars: {{ carCountData?.car_count }}</p>
+                                  <p>Moving Cars: {{ carCountData?.moving }}</p>
+                                  <p>Idle Cars: {{ carCountData?.idle }}</p>
                                 </div>
-                            </div>
+                            </div>                              
                         </div>
                         <div class="col-md-3">
                             <div class="card">
+                                <div class="card-header">Services</div>
                                 <div class="card-body">
-                                    Small Card 2
+                                  <p>Total Completed: {{ servicesData?.total_completed }}</p>
+                                  <p>Total Upcoming: {{ servicesData?.total_upcoming }}</p>
+                                  <p>Pending Services: {{ servicesData?.pending_services }}</p>
+                                  <ul>
+                                    <li *ngFor="let service of servicesData?.services | keyvalue">
+                                      Service ID: {{ service.key }}, Quantity: {{ service.value }}
+                                    </li>
+                                  </ul>
                                 </div>
-                            </div>
+                              </div>
+                              
                         </div>
                         <div class="col-md-3">
                             <div class="card">

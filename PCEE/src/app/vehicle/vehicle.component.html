@@ -6,7 +6,6 @@
             </ol>
         </div>
         <div class="page-header">
-            <h1>Welcome to your dashboard</h1>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card border-secondary mb-3">
@@ -15,18 +14,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="card border-secondary mb-3">
-                                        <div class="card-header">Moving Vehicles</div>
+                                        <div class="card-header">Moving Cars</div>
                                         <div class="card-body">
-                                            <h4 class="card-title">Vehicle 1</h4>
-                                            <!-- Add more vehicle information here -->
+                                            <p>{{ carCountData?.moving }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card border-secondary mb-3">
-                                        <div class="card-header">Stopped Vehicles</div>
+                                        <div class="card-header">Stopped Cars</div>
                                         <div class="card-body">
-                                            <h4 class="card-title">Vehicle 2</h4>
+                                            <p>{{ carCountData?.idle }}</p>
                                             <!-- Add more vehicle information here -->
                                         </div>
                                     </div>
@@ -45,35 +43,35 @@
                 <div class="card-header">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto">
-                            <h5>Vehicle</h5>
+                            <h5>Vehicles</h5>
                         </div>
                         <div class="col-auto">
-                            <button class="btn btn-primary">Add Vehicle</button>
+                            <button routerLink="/add-vehicle" class="btn btn-primary">Add Car</button>
                         </div>
                     </div>
                 </div>
                 
                 
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-hover table-striped">
                         <thead>
-                            <tr>
-                                <th scope="col">Car</th>
-                                <th scope="col">Registration No</th>
-                            </tr>
+                          <tr>
+                            <th scope="col">Model</th>
+                            <th scope="col">Manufacturer</th>
+                            <th scope="col">Number Plate</th>
+                            <th scope="col"></th>
+                          </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Vehicle 1</td>
-                                <td>ABC123</td>
-                            </tr>
-                            <tr>
-                                <td>Vehicle 2</td>
-                                <td>DEF456</td>
-                            </tr>
-                            <!-- Add more rows for additional vehicles -->
+                          <tr *ngFor="let vehicle of vehicles">
+                            <td>{{ vehicle.model }}</td>
+                            <td>{{ vehicle.manufacturer }}</td>
+                            <td>{{ vehicle.number_plate }}</td>
+                            <td><a href="" class="btn btn-secondary">View</a></td>
+                          </tr>
                         </tbody>
-                    </table>
+                      </table>
+                      
                 </div>
                 
             </div>

@@ -10,7 +10,9 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { VehicleDetailViewComponent } from './vehicle-detail-view/vehicle-detail-view.component';
 
 export const routes: Routes = [
-    {path: 'vehicle-detail-view', component: VehicleDetailViewComponent },
+    /*{path: 'vehicle-detail-view/:id',
+     loadComponent: () => import('./vehicle-detail-view/vehicle-detail-view.component').then(mod => mod.VehicleDetailViewComponent) },*/
+    {path: 'vehicle-detail-view/:id', component: VehicleDetailViewComponent},
     {path: 'home', component:WelcomePageComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'signup', component: SignupComponent},

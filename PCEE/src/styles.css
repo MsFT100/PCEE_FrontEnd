@@ -30,5 +30,16 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555; /* Color of the handle on hover */
   }
-  
+  .horizontal-list {
+    display: flex;
+    flex-wrap: nowrap; /* Ensures items don't wrap to next line */
+    gap: 20px; /* Adjust spacing between items */
+    list-style: none; /* Removes default list styles */
+    padding: 0;
+}
+
+.horizontal-list li {
+    flex: 1; /* Each item takes equal space */
+}
+
 

@@ -72,7 +72,7 @@
                             <td>{{ vehicle.model }}</td>
                             <td>{{ vehicle.manufacturer }}</td>
                             <td>{{ vehicle.number_plate }}</td>
-                            <td><a href="" class="btn btn-secondary">View</a></td>
+                            <td><a [routerLink]="['/vehicle-detail-view', vehicle.id]" class="btn btn-secondary">View</a></td>
                           </tr>
                         </tbody>
                       </table>

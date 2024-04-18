@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 interface Vehicle {
+  id: string;
   model: string;
   manufacturer: string;
   number_plate: string;

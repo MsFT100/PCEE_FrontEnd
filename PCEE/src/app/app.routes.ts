@@ -7,8 +7,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
+import { VehicleDetailViewComponent } from './vehicle-detail-view/vehicle-detail-view.component';
 
 export const routes: Routes = [
+    {path: 'vehicle-detail-view', component: VehicleDetailViewComponent },
     {path: 'home', component:WelcomePageComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'signup', component: SignupComponent},

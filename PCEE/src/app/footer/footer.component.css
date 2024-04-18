@@ -1,0 +1,11 @@
+/* style.css or your custom stylesheet */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: max-content;
+    background-color: #343a40; /* Adjust background color as needed */
+    padding: 20px 0; /* Adjust padding as needed */
+    text-align: center;
+    color: #ffffff; /* Adjust text color as needed */
+}

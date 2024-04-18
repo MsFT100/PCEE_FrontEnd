@@ -4,6 +4,11 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Home</li>
             </ol>
+            <div *ngIf="successMessage" class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert">.</button>
+                {{ successMessage }}
+            </div>
+              
         </div>
         <div class="page-header">
             <div class="row">

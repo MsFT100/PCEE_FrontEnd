@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 interface Vehicle {
   model: string;
@@ -33,10 +33,20 @@ export class VehicleComponent {
   token: string | null = null;
   errorMessage: string | null = null;
   carCountData: CarCountResponse | null = null;
+  successMessage: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+
+    //register for messages
+    this.route.queryParams.subscribe(params => {
+      this.successMessage = params['successMessage'] || null;
+    });
+
     this.token = localStorage.getItem('token'); // Retrieve token from local storage
     if (this.token) {
       

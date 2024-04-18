@@ -38,7 +38,7 @@ export class SignupComponent {
   
 
   constructor(private http: HttpClient, private router: Router) {}
-
+ 
   onSubmit() {
     this.http.post<SignupResponse>('https://pcee.xyz/api/register/', this.formData)
       .subscribe(

@@ -8,11 +8,15 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { VehicleDetailViewComponent } from './vehicle-detail-view/vehicle-detail-view.component';
+import { AddFuelComponent } from './add-fuel/add-fuel.component';
+import { VehicleSubscriptionComponent } from './vehicle-subscription/vehicle-subscription.component';
 
 export const routes: Routes = [
     /*{path: 'vehicle-detail-view/:id',
      loadComponent: () => import('./vehicle-detail-view/vehicle-detail-view.component').then(mod => mod.VehicleDetailViewComponent) },*/
     {path: 'vehicle-detail-view/:id', component: VehicleDetailViewComponent},
+    {path: 'add-fuel/:id', component: AddFuelComponent},
+    {path: 'subscriptions/:id', component: VehicleSubscriptionComponent},
     {path: 'home', component:WelcomePageComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'signup', component: SignupComponent},

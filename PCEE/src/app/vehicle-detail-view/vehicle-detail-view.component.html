@@ -13,26 +13,27 @@
                               <a class="nav-link active" data-bs-toggle="tab" href="#general" aria-selected="true" role="tab">General</a>
                             </li>
                             <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#repairs" aria-selected="false" tabindex="-1" role="tab">Repairs</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
                               <a class="nav-link" data-bs-toggle="tab" href="#settings" aria-selected="false" tabindex="-1" role="tab">Settings</a>
                             </li>
+                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Service</a>
                                 <div class="dropdown-menu">
                                   
-                                  <a class="dropdown-item" href="#">Add Fuel</a>
-                                  <a class="dropdown-item" href="#">Car Defect</a>
-                                  <a class="dropdown-item" href="#">Payment And subscriptions</a>
+                                  <a class="dropdown-item" [routerLink]="['/add-fuel', vehicleId]" >Add Fuel</a>
+                                  <a class="dropdown-item" [routerLink]="['/subscriptions', vehicleId]">Payment And subscriptions</a>
                                   
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
                               <div class="dropdown-menu">
-                                
-                                
+                                <h5 class="dropdown-item">Download Reports</h5>
                                 <a class="dropdown-item" href="#">General Reports</a>
                                 <a class="dropdown-item" href="#">Payment And subscriptions Report</a>
-                                
                               </div>
                             </li>
                         </ul>
@@ -73,7 +74,20 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        <!--Defects-->
+                                        <div class="card border-secondary mb-3">
+                                            <div class="card-body">
+                                               <p>Car Defects</p>
+                                            </div>
+                                        </div>
                                         
+                                        <!--Anomalies-->
+                                        <div class="card border-secondary mb-3">
+                                            <div class="card-body">
+                                               <p>Anomalies</p>
+                                            </div>
+                                        </div>
+
                                         <!--vehicle-->
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
@@ -103,28 +117,97 @@
                                     </div> 
                                 </div>
                             </div>
-                            <div class="tab-pane fade show active" id="settings" role="tabpanel">
+                            <div class="tab-pane fade show" id="settings" role="tabpanel">
                                 <div class="col-md-12">
                                     <div class="row"> 
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
-                                                <ul class="horizontal-list">
-                                                    <li>
-                                                        <label for="speed">Speed</label>
-                                                        <br>
-                                                        <p>1</p>
-                                                    </li>
+                                                <form (ngSubmit)="onSubmit()">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="VIN" class="form-label" >VIN</label>
+                                                            <input type="number" class="form-control" id="VIN" placeholder="56" [(ngModel)]="formData.VIN" name="VIN">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="year" class="form-label" >Model Year</label>
+                                                            <input type="number" min="1900" class="form-control" id="year" [(ngModel)]="formData.year" name="year">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="vehicle_reg_no">Vehicle Registration No</label>
+                                                            <input type="text" class="form-control" id="vehicle_reg_no" [(ngModel)]="formData.vehicle_reg_no" name="vehicle_reg_no">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="device_number">Device Number</label>
+                                                            <input type="number" class="form-control" id="device_number" [(ngModel)]="formData.device_number" name="device_number">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="vehicle_type">Vehicle Type</label>
+                                                            <input type="text" class="form-control" id="vehicle_type" [(ngModel)]="formData.vehicle_type" name="vehicle_type">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="model">Model</label>
+                                                            <input type="text" class="form-control" id="model" [(ngModel)]="formData.model" name="model">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="vehicle_color">Vehicle Color</label>
+                                                            <input type="text" class="form-control" id="vehicle_color" [(ngModel)]="formData.vehicle_color" name="vehicle_color">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="device_number">Device Number</label>
+                                                            <input type="number" class="form-control" id="device_number" [(ngModel)]="formData.device_number" name="device_number">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="device_name">Device Name</label>
+                                                            <input type="text" class="form-control" id="device_name" [(ngModel)]="formData.device_name" name="device_name">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="device_sim">Device SIM</label>
+                                                            <input type="text" class="form-control" id="device_sim" [(ngModel)]="formData.device_sim" name="device_sim">
+                                                        </div>
+                                                        
+                                                    </div>
                                                     
-                                                </ul>
+                                                    
+                                                        
+                                                    
+                                                </form>
                                             </div>
                                         </div>
                                         
+                                        <!--Maintenance Settings-->
+                                        <div class="card border-secondary mb-3">
+                                            <div class="card-header">
+                                                <h5>Maintenance Settings</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <form (ngSubmit)="onMaintenaceSubmit()">
+                                                        <div class="row">
+                                                            <div class="mt-3">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="service_name">Service Name</label>
+                                                                    <input type="number" class="form-control" id="service_name" [(ngModel)]="formData.service_name" name="service_name">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="service_data">Service Date</label>
+                                                                    <input type="text" class="form-control" id="service_data" [(ngModel)]="formData.service_data" name="service_data">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="service_interval">Service Interval</label>
+                                                                    <input type="text" class="form-control" id="service_interval" [(ngModel)]="formData.service_interval" name="service_interval">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!--vehicle-->
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <label for="status">
-
+                                                        <button class="btn btn-danger">Delete Vehicle</button>
                                                     </label>
                                                 </div>
                                             </div>
@@ -134,7 +217,47 @@
                                 </div>
                                 
                             </div>
-                            
+                            <div class="tab-pane fade show" id="repairs" role="tabpanel">
+                                <div class="col-md-12">
+                                    <div class="row"> 
+                                        <!--vehicle-->
+                                        <div class="card border-secondary mb-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <label for="status">
+                                                        Repairs
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card border-secondary mb-3">
+                                            <div class="card-body">
+                                                <table class="table table-hover table-striped">
+                                                    <thead>
+                                                      <tr>
+                                                        <th scope="col">Repair Date</th>
+                                                        <th scope="col">Mileage</th>
+                                                        <th scope="col">Service Type</th>
+                                                        <th scope="col">Cost</th>
+                                                        <th scope="col"></th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr *ngFor="let vehicle of vehicles">
+                                                        <td>{{ vehicle.model }}</td>
+                                                        <td>{{ vehicle.manufacturer }}</td>
+                                                        <td>{{ vehicle.number_plate }}</td>
+                                                        <!--<td><a [routerLink]="['/vehicle-detail-view', vehicle.id]" class="btn btn-secondary">View</a></td>-->
+                                                      </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                
+                            </div>
                         </div>        
                     </div>
                 </div>

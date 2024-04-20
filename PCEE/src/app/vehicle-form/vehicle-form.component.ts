@@ -75,29 +75,31 @@ export class VehicleFormComponent {
             }
           }
         );
-    } else {
-      console.error('Token is not available.');
-      this.router.navigate(['/login']);
+        } else {
+          console.error('Token is not available.');
+          this.router.navigate(['/login']);
+        }
     }
-  }
-  resetFormData() {
-    this.formData = {
-      manufacturer: '',
-      model: '',
-      year: 0,
-      vehicle_type: '',
-      fuel_id: 0,
-      transmission: 0,
-      eng_displacement: '',
-      vehicle_color: '',
-      vehicle_reg_no: '',
-      number_plate: '',
-      custom_name: '',
-      vehicle_ident_no: 0,
-      device_number: '',
-      device_name: '',
-      device_sim: '',
-      protocol_header: ''
-    };
-  }
+
+    // Reset the form data
+    resetFormData() {
+      this.formData = {
+        manufacturer: '',
+        model: '',
+        year: 0,
+        vehicle_type: '',
+        fuel_id: 0,
+        transmission: 0,
+        eng_displacement: '',
+        vehicle_color: '',
+        vehicle_reg_no: '',
+        number_plate: '',
+        custom_name: '',
+        vehicle_ident_no: 0,
+        device_number: '',
+        device_name: '',
+        device_sim: '',
+        protocol_header: ''
+      };
+    }
 }

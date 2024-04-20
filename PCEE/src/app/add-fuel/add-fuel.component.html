@@ -17,7 +17,7 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="date">Date</label>
-                  <input type="date" class="form-control" id="date" [(ngModel)]="formData.date" name="date">
+                  <input type="date" class="form-control" id="date" [max]="currentDate" [(ngModel)]="formData.date" name="date">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="quantity">Quantity</label>
@@ -31,7 +31,7 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="fuel_cost">Cost</label>
-                  <input type="number" class="form-control" id="fuel_cost" [(ngModel)]="formData.cost" name="fuel_cost">
+                  <input type="number" class="form-control" id="fuel_cost" [(ngModel)]="formData.price" name="fuel_cost">
                 </div>
                 
               </div>

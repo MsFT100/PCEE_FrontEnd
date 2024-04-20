@@ -3,6 +3,10 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">Settings</li>
         </ol>
+        <div *ngIf="successMessage" class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert">.</button>
+            {{ successMessage }}
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12" id="vehicle-detail-view">
 
@@ -21,11 +25,10 @@
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Service</a>
-                                <div class="dropdown-menu">
-                                  
+                                <div class="dropdown-menu">                                  
                                   <a class="dropdown-item" [routerLink]="['/add-fuel', vehicleId]" >Add Fuel</a>
-                                  <a class="dropdown-item" [routerLink]="['/subscriptions', vehicleId]">Payment And subscriptions</a>
-                                  
+                                  <a class="dropdown-item" [routerLink]="['/add-service', vehicleId]" >Add Service</a>
+                                  <a class="dropdown-item" [routerLink]="['/subscriptions', vehicleId]">Payment And subscriptions</a>  
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -47,31 +50,32 @@
                                             <div class="card-body">
                                                 <ul class="horizontal-list">
                                                     <li>
-                                                        <label for="speed">Speed</label>
-                                                        <br>
-                                                        <p>1</p>
+                                                      <label for="speed">Speed</label>
+                                                      <br>
+                                                      <h2>{{ vehicleData?.throttle?.speed_id }}</h2>
                                                     </li>
                                                     <li>
-                                                        <label for="mileage">Mileage</label>
-                                                        <br>
-                                                        <p>1</p>
+                                                      <label for="mileage">Mileage</label>
+                                                      <br>
+                                                      <h2>{{ vehicleData?.mileage?.mileage }}</h2>
                                                     </li>
                                                     <li>
-                                                        <label for="speed">Engine Load</label>
-                                                        <br>
-                                                        <p>1</p>
+                                                      <label for="engine_load">Engine Load</label>
+                                                      <br>
+                                                      <h2>{{ vehicleData?.engine_load?.engine_load_value }}</h2>
                                                     </li>
                                                     <li>
-                                                        <label for="speed">Fuel</label>
-                                                        <br>
-                                                        <p>1</p>
+                                                      <label for="fuel">Fuel</label>
+                                                      <br>
+                                                      <h2>{{ vehicleData?.fuel?.fuel_level }}</h2>
                                                     </li>
                                                     <li>
-                                                        <label for="speed">Battery</label>
-                                                        <br>
-                                                        <p>1</p>
+                                                      <label for="battery">Battery</label>
+                                                      <br>
+                                                      <h2>{{ vehicleData?.battery?.state_of_charge }}</h2>
                                                     </li>
-                                                </ul>
+                                                  </ul>
+                                                  
                                             </div>
                                         </div>
                                         <!--Defects-->
@@ -84,7 +88,13 @@
                                         <!--Anomalies-->
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
-                                               <p>Anomalies</p>
+                                                <div class="card border-warning mb-3" style="max-width: 20rem;">
+                                                    <div class="card-header">Anomalies</div>
+                                                    <div class="card-body">
+                                                      <h4 class="card-title">{{ vehicleData?.error_code?.fault_code }}</h4>
+                                                      <p class="card-text">{{ vehicleData?.error_code?.description}}</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -122,51 +132,52 @@
                                     <div class="row"> 
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
-                                                <form (ngSubmit)="onSubmit()">
+                                                <form (ngSubmit)="onSubmitUpdateVehicle()">
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
-                                                            <label for="VIN" class="form-label" >VIN</label>
-                                                            <input type="number" class="form-control" id="VIN" placeholder="56" [(ngModel)]="formData.VIN" name="VIN">
+                                                            <label for="manufacturer" class="form-label" >Manufacturer</label>
+                                                            <input type="text" class="form-control" id="manufacturer" placeholder="{{ vehicleData?.vehicle?.manufacturer}}" [(ngModel)]="formData.manufacturer" name="manufacturer">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="year" class="form-label" >Model Year</label>
-                                                            <input type="number" min="1900" class="form-control" id="year" [(ngModel)]="formData.year" name="year">
+                                                            <input type="number" min="1900" class="form-control" id="year" placeholder="{{ vehicleData?.vehicle?.year }}" [(ngModel)]="formData.year" name="year">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="vehicle_reg_no">Vehicle Registration No</label>
-                                                            <input type="text" class="form-control" id="vehicle_reg_no" [(ngModel)]="formData.vehicle_reg_no" name="vehicle_reg_no">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="device_number">Device Number</label>
-                                                            <input type="number" class="form-control" id="device_number" [(ngModel)]="formData.device_number" name="device_number">
+                                                            <input type="text" class="form-control" id="vehicle_reg_no" placeholder="{{ vehicleData?.vehicle?.vehicle_reg_no }}" [(ngModel)]="formData.vehicle_reg_no" name="vehicle_reg_no">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="vehicle_type">Vehicle Type</label>
-                                                            <input type="text" class="form-control" id="vehicle_type" [(ngModel)]="formData.vehicle_type" name="vehicle_type">
+                                                            <input type="text" class="form-control" id="vehicle_type" placeholder="{{ vehicleData?.vehicle?.vehicle_type}} " [(ngModel)]="formData.vehicle_type" name="vehicle_type">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="model">Model</label>
-                                                            <input type="text" class="form-control" id="model" [(ngModel)]="formData.model" name="model">
+                                                            <input type="text" class="form-control" id="model" placeholder="{{ vehicleData?.vehicle?.model }} " [(ngModel)]="formData.model" name="model">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="vehicle_color">Vehicle Color</label>
-                                                            <input type="text" class="form-control" id="vehicle_color" [(ngModel)]="formData.vehicle_color" name="vehicle_color">
+                                                            <input type="text" class="form-control" id="vehicle_color" placeholder="{{ vehicleData?.vehicle?.vehicle_color }} " [(ngModel)]="formData.vehicle_color" name="vehicle_color">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="device_number">Device Number</label>
-                                                            <input type="number" class="form-control" id="device_number" [(ngModel)]="formData.device_number" name="device_number">
+                                                            <input type="number" class="form-control" id="device_number" placeholder="{{ vehicleData?.vehicle?.device_number }} " [(ngModel)]="formData.device_number" name="device_number">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="device_name">Device Name</label>
-                                                            <input type="text" class="form-control" id="device_name" [(ngModel)]="formData.device_name" name="device_name">
+                                                            <input type="text" class="form-control" id="device_name" placeholder="{{ vehicleData?.vehicle?.device_name }} " [(ngModel)]="formData.device_name" name="device_name">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="device_sim">Device SIM</label>
-                                                            <input type="text" class="form-control" id="device_sim" [(ngModel)]="formData.device_sim" name="device_sim">
+                                                            <input type="text" class="form-control" id="device_sim" placeholder="{{ vehicleData?.vehicle?.device_sim }} " [(ngModel)]="formData.device_sim" name="device_sim">
                                                         </div>
                                                         
                                                     </div>
-                                                    
+                                                    <div class="row">
+                                                        <label for="status">
+                                                            <br><br>
+                                                            <button class="btn btn-warning">Update Vehicle</button>
+                                                        </label>
+                                                    </div>
                                                     
                                                         
                                                     
@@ -186,7 +197,7 @@
                                                             <div class="mt-3">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="service_name">Service Name</label>
-                                                                    <input type="number" class="form-control" id="service_name" [(ngModel)]="formData.service_name" name="service_name">
+                                                                    <input type="number" class="form-control" id="service_name"   [(ngModel)]="formData.service_name" name="service_name">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="service_data">Service Date</label>
@@ -244,10 +255,11 @@
                                                       </tr>
                                                     </thead>
                                                     <tbody>
-                                                      <tr *ngFor="let vehicle of vehicles">
-                                                        <td>{{ vehicle.model }}</td>
-                                                        <td>{{ vehicle.manufacturer }}</td>
-                                                        <td>{{ vehicle.number_plate }}</td>
+                                                      <tr *ngFor="let repair of repairs">
+                                                        <td>{{ repair.repaired_date }}</td>
+                                                        <td>{{ repair.mileage }}</td>
+                                                        <td>{{ repair.service_type }}</td>
+                                                        <td>{{ repair.total_cost }}</td>
                                                         <!--<td><a [routerLink]="['/vehicle-detail-view', vehicle.id]" class="btn btn-secondary">View</a></td>-->
                                                       </tr>
                                                     </tbody>

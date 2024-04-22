@@ -11,9 +11,9 @@ interface CarCountResponse {
 
 interface ServicesResponse {
   services: { [key: string]: number };
-  total_completed: number;
-  total_upcoming: number;
-  pending_services: number;
+  totalCompleted: number;
+  totalUpcoming: number;
+  pendingServices: number;
 }
 
 @Component({
@@ -56,6 +56,7 @@ export class DashboardComponent {
       .subscribe(
         (response: CarCountResponse) => {
           this.carCountData = response;
+          //console.log(response);
         },
         error => {
           console.error('Failed to fetch car count data:', error);
@@ -74,8 +75,14 @@ export class DashboardComponent {
 
     this.http.get<ServicesResponse>('https://pcee.xyz/service/total/', { headers })
       .subscribe(
-        (response: ServicesResponse) => {
-          this.servicesData = response;
+        (response: any) => {
+          this.servicesData = {
+            services: response.services,
+            totalCompleted: response['total completed'],
+            totalUpcoming: response['total upcoming'],
+            pendingServices: response["pending services"]
+          };
+          //console.log(response);
         },
         error => {
           console.error('Failed to fetch service data:', error);

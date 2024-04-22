@@ -20,6 +20,18 @@ interface RepairsCurrentCar {
   mileage: string,
   custom_name: string,
 }
+interface ServiceCurrentCar {
+  id: string;
+  service_type : string,
+  next_service_date: string,
+  last_service_date: string,
+  service_provider: string,
+  created_at: string,
+  cost: number,
+  mileage: string,
+  custom_name: string,
+}
+
 interface Vehicle {
   id: string;
   vehicle_ident_no: number;
@@ -169,17 +181,20 @@ interface VehicleData {
   throttle: Throttle;
   mileage: Mileage;
   speed: Speed;
-  engine_load: EngineLoad;
-  error_code: ErrorCode;
+  engineload: EngineLoad;
+  "error codes": ErrorCode;
   gps: GPS;
   fuel: Fuel;
   battery: Battery;
   coolant: Coolant;
   rpm: RPM;
-
+  
   // Define other properties similarly
 }
-
+interface Services{
+  vehicle: Vehicle;
+  "Service Schedule": ServiceCurrentCar[];
+}
 interface VehicleFormErrorData {
   manufacturer?: string[];
   model?: string[];
@@ -211,7 +226,7 @@ interface VehicleFormErrorData {
   styleUrl: './vehicle-detail-view.component.css'
 })
 export class VehicleDetailViewComponent {
-  
+
 
 
   private readonly POLLING_INTERVAL = 30000; // 10 seconds
@@ -226,9 +241,12 @@ export class VehicleDetailViewComponent {
   subscription: string | null = null;
   systemUpdates: string | null = null;
   repairs:RepairsCurrentCar[] = [];
+  services: Services | null = null;
+
   vehicleData: VehicleData | null = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  currentDate: string | null = null;
 
   constructor(
     private http: HttpClient,
@@ -237,6 +255,30 @@ export class VehicleDetailViewComponent {
     //private vehicleData: VehicleComponent // Replace 'VehicleService' with your actual service
   ) { }
 
+  deleteVehicle() {
+    // Construct the URL with the vehicleId
+    const url = `https://pcee.xyz/api/vehicles/${this.vehicleId}/request-vd`;
+
+    // Set the headers with the authorization token
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${this.token}`
+    });
+
+    // Send the DELETE request
+    this.http.delete(url, { headers }).subscribe(
+      () => {
+        this.router.navigate(['/vehicle'], { queryParams: { successMessage: 'Car was Deleted request successful!' } });
+        
+        console.log('Delete request successful');
+        
+      },
+      error => {
+        console.error('Failed to send delete request:', error);
+        // Handle errors appropriately
+      }
+    );
+    }
+      
   onMaintenaceSubmit() {
     throw new Error('Method not implemented.');
     }
@@ -260,10 +302,13 @@ export class VehicleDetailViewComponent {
     this.token = localStorage.getItem('token'); // Retrieve token from local storage
     if (this.token) {
       
+      //this.fetchServiceData();
       this.fetchRepairData();
       this.fetchVehicleData();
+      this.fetchServiceData();
       this.startPolling();
-      //this.fetchCarCountData();
+      
+      this.currentDate = this.getCurrentDate();
     } else {
       console.error('Token is not available.');
     }
@@ -282,6 +327,7 @@ export class VehicleDetailViewComponent {
       // Use switchMap to cancel previous request if not completed
       
       switchMap(async () => this.fetchVehicleData())
+      
     ).subscribe(
       () => {
         // Data fetched successfully, you can update UI or perform other operations here
@@ -293,6 +339,14 @@ export class VehicleDetailViewComponent {
         console.error('Failed to fetch data:', error);
       }
     );
+  }
+  getCurrentDate(): string | null {
+    // Get the current date in the format YYYY-MM-DD
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
   fetchFuelData() {
 
@@ -328,6 +382,27 @@ export class VehicleDetailViewComponent {
         }
       );
   }
+
+  fetchServiceData() {
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${this.token}`
+    });
+  
+    const url = `https://pcee.xyz/service/${this.vehicleId}`;
+    this.http.get<Services>(url, { headers })
+      .subscribe(
+        (response: Services) => {
+
+          // Assign the array of service schedules to this.services
+          this.services = response;
+          console.log(this.services);
+        },
+        error => {
+          console.error('Failed to fetch repairs data:', error);
+        }
+      );
+  }
+  
 
   fetchVehicleData(){
     const headers = new HttpHeaders({

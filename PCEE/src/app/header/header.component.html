@@ -16,11 +16,15 @@
           <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link"  href="/dashboard">Dashboard</a>
           </li>
+          
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link"  href="/vehicle">vehicles</a>
+          </li>
           <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link"  href="/settings">settings</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
-            <a class="nav-link"  href="/vehicle">vehicles</a>
+            <a class="nav-link"  href="/contact-us">Contact Us</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
             <button class="btn btn-primary" (click)="logout()">Logout</button>

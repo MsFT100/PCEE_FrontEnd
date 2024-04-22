@@ -23,6 +23,9 @@ export class HeaderComponent implements OnInit {
     this.checkLoginStatus();
   }
 
+  ngDoCheck(): void{
+    //window.location.reload();
+  }
   checkLoginStatus(): void {
     const token = localStorage.getItem('token');
     this.isLoggedIn = !!token;

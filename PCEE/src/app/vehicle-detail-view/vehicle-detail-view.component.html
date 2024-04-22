@@ -3,6 +3,10 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">Settings</li>
         </ol>
+        
+        <div>
+            <a routerLink="/vehicle" class="btn btn-outline-primary my-3 mx-4">Go Back</a>
+        </div>
         <div *ngIf="successMessage" class="alert alert-dismissible alert-success">
             <button type="button" class="btn-close" data-bs-dismiss="alert">.</button>
             {{ successMessage }}
@@ -17,10 +21,10 @@
                               <a class="nav-link active" data-bs-toggle="tab" href="#general" aria-selected="true" role="tab">General</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-bs-toggle="tab" href="#repairs" aria-selected="false" tabindex="-1" role="tab">Repairs</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#repairs" aria-selected="false" tabindex="1" role="tab">Repairs History</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                              <a class="nav-link" data-bs-toggle="tab" href="#settings" aria-selected="false" tabindex="-1" role="tab">Settings</a>
+                              <a class="nav-link" data-bs-toggle="tab" href="#settings" aria-selected="false" tabindex="0" role="tab">Settings</a>
                             </li>
                             
                             <li class="nav-item dropdown">
@@ -62,7 +66,7 @@
                                                     <li>
                                                       <label for="engine_load">Engine Load</label>
                                                       <br>
-                                                      <h2>{{ vehicleData?.engine_load?.engine_load_value }}</h2>
+                                                      <h2>{{ vehicleData?.engineload?.engine_load_value }}</h2>
                                                     </li>
                                                     <li>
                                                       <label for="fuel">Fuel</label>
@@ -78,25 +82,35 @@
                                                   
                                             </div>
                                         </div>
-                                        <!--Defects-->
-                                        <div class="card border-secondary mb-3">
-                                            <div class="card-body">
-                                               <p>Car Defects</p>
-                                            </div>
-                                        </div>
+                                        
                                         
                                         <!--Anomalies-->
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
-                                                <div class="card border-warning mb-3" style="max-width: 20rem;">
-                                                    <div class="card-header">Anomalies</div>
-                                                    <div class="card-body">
-                                                      <h4 class="card-title">{{ vehicleData?.error_code?.fault_code }}</h4>
-                                                      <p class="card-text">{{ vehicleData?.error_code?.description}}</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="card border-danger mb-3" style="max-width: 30rem;">
+                                                            <div class="card-header">Errors</div>
+                                                            <div class="card-body">
+                                                            <h4 class="card-title">{{ vehicleData?.['error codes']?.fault_code }}</h4>
+                                                            <p class="card-text">{{ vehicleData?.['error codes']?.description }}</p>
+                                                            <p class="card-text">{{ vehicleData?.['error codes']?.severity }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="card border-warning mb-3" style="max-width: 30rem;">
+                                                            <div class="card-header">Anomaly</div>
+                                                            <div class="card-body">
+                                                            <h4 class="card-title">{{ vehicleData?.['error codes']?.fault_code }}</h4>
+                                                            <p class="card-text">{{ vehicleData?.['error codes']?.description }}</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                          
 
                                         <!--vehicle-->
                                         <div class="card border-secondary mb-3">
@@ -200,14 +214,22 @@
                                                                     <input type="number" class="form-control" id="service_name"   [(ngModel)]="formData.service_name" name="service_name">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <label for="service_data">Service Date</label>
-                                                                    <input type="text" class="form-control" id="service_data" [(ngModel)]="formData.service_data" name="service_data">
+                                                                    <label for="service_date">Service Date</label>
+                                                                    <input type="date" class="form-control" id="service_date" [max]="currentDate" [(ngModel)]="formData.service_date" name="service_date">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="service_interval">Service Interval</label>
-                                                                    <input type="text" class="form-control" id="service_interval" [(ngModel)]="formData.service_interval" name="service_interval">
+                                                                    <input type="number" class="form-control" min="1" id="service_interval" placeholder="1" [(ngModel)]="formData.service_interval" name="service_interval">
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            
+                                                            <label for="status">
+                                                                <br><br>
+                                                                <button class="btn btn-warning">Update Maintenace</button>
+                                                            </label>
+                                                            
                                                         </div>
                                                     </form>
                                                 </div>
@@ -218,7 +240,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <label for="status">
-                                                        <button class="btn btn-danger">Delete Vehicle</button>
+                                                        <button class="btn btn-danger"  (click)="deleteVehicle()">Delete Vehicle</button>
                                                     </label>
                                                 </div>
                                             </div>
@@ -230,42 +252,79 @@
                             </div>
                             <div class="tab-pane fade show" id="repairs" role="tabpanel">
                                 <div class="col-md-12">
-                                    <div class="row"> 
+                                    
+                                    <div class="row">     
                                         <!--vehicle-->
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
-                                                <div class="row">
-                                                    <label for="status">
-                                                        Repairs
-                                                    </label>
+                                                <ul class="nav nav-pills" role="tablist">
+                                                    <li class="nav-item">
+                                                      <a class="nav-link active" data-bs-toggle="tab" aria-selected="true" href="#repairs-history" role="tab">Repairs</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-bs-toggle="tab" aria-selected="false" href="#services-history" role="tab">Services</a>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="myTabContent2" class="tab-content">
+                                            <div class="tab-pane fade show active" id="repairs-history">
+                                                <div class="card border-secondary mb-3">
+                                                    <div class="card-body">
+                                                        <table class="table table-hover table-striped">
+                                                            <thead>
+                                                              <tr>
+                                                                <th scope="col">Repair Date</th>
+                                                                <th scope="col">Mileage</th>
+                                                                <th scope="col">Service Type</th>
+                                                                <th scope="col">Cost</th>
+                                                                <th scope="col"></th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              <tr *ngFor="let repair of repairs">
+                                                                <td>{{ repair.repaired_date }}</td>
+                                                                <td>{{ repair.mileage }}</td>
+                                                                <td>{{ repair.service_type }}</td>
+                                                                <td>{{ repair.total_cost }}</td>
+                                                                <!--<td><a [routerLink]="['/vehicle-detail-view', vehicle.id]" class="btn btn-secondary">View</a></td>-->
+                                                              </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade show" id="services-history">
+                                                <div class="card border-secondary mb-3">
+                                                    <div class="card-body">
+                                                        <table class="table table-hover table-striped">
+                                                            <thead>
+                                                              <tr>
+                                                                <th scope="col">Service Date</th>
+                                                                <th scope="col">Next Service Date</th>
+                                                                <th scope="col">Mileage</th>
+                                                                <th scope="col">Service Type</th>
+                                                                <th scope="col">Cost</th>
+                                                                <th scope="col"></th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              <tr *ngFor="let service of services?.['Service Schedule']">
+                                                                <td>{{ service.next_service_date }}</td>
+                                                                <td>{{ service.last_service_date }}</td>
+                                                                <td>{{ service.mileage }}</td>
+                                                                <td>{{ service.service_type }}</td>
+                                                                <td>{{ service.cost }}</td>
+                                                                <!--<td><a [routerLink]="['/vehicle-detail-view', vehicle.id]" class="btn btn-secondary">View</a></td>-->
+                                                              </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         
-                                        <div class="card border-secondary mb-3">
-                                            <div class="card-body">
-                                                <table class="table table-hover table-striped">
-                                                    <thead>
-                                                      <tr>
-                                                        <th scope="col">Repair Date</th>
-                                                        <th scope="col">Mileage</th>
-                                                        <th scope="col">Service Type</th>
-                                                        <th scope="col">Cost</th>
-                                                        <th scope="col"></th>
-                                                      </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      <tr *ngFor="let repair of repairs">
-                                                        <td>{{ repair.repaired_date }}</td>
-                                                        <td>{{ repair.mileage }}</td>
-                                                        <td>{{ repair.service_type }}</td>
-                                                        <td>{{ repair.total_cost }}</td>
-                                                        <!--<td><a [routerLink]="['/vehicle-detail-view', vehicle.id]" class="btn btn-secondary">View</a></td>-->
-                                                      </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
                                     </div> 
                                 </div>
                                 

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ThemeService } from '../themeService';
 
 interface Vehicle {
   id: string;
@@ -35,13 +36,21 @@ export class VehicleComponent {
   errorMessage: string | null = null;
   carCountData: CarCountResponse | null = null;
   successMessage: string | null = null;
+  isLoading: boolean = false;
+  isDarkTheme: boolean = true;
 
   constructor(private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
+
+    this.isLoading = true;
+    // Perform async operation (e.g., API call)
+    this.isDarkTheme = this.themeService.isDarkTheme();
+    this.themeService.isDarkTheme();
 
     //register for messages
     this.route.queryParams.subscribe(params => {
@@ -56,6 +65,11 @@ export class VehicleComponent {
     } else {
       console.error('Token is not available.');
     }
+
+    //disable load
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   }
   
   fetchCarCountData() {

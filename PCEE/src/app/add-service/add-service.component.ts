@@ -20,10 +20,12 @@ export class AddServiceComponent {
   errorMessage: string | null = null;
   vehicleId: string | null = null;
   currentDate: string | null = null;
+  isDarkTheme: boolean = false;
 
   constructor(private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
+    //private themeService ThemeService
     
   ) { }
 

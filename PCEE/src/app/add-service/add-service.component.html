@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [class.bg-light]="!isDarkTheme" [class.bg-dark]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
     <div class="row justify-content-center mt-5">
       <div class="col-md-5">
         <div *ngIf="errorMessage" class="alert alert-danger">

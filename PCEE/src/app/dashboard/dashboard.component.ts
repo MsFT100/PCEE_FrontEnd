@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ThemeService } from '../themeService';
 
 
 interface CarCountResponse {
@@ -29,10 +30,22 @@ export class DashboardComponent {
   carCountData: CarCountResponse | null = null;
   servicesData: ServicesResponse | null = null;
   token: string | null = null; // Assuming you have a token stored after login
+  isLoading: boolean = false;
+  isDarkTheme: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient,
+    private themeService : ThemeService
+  ) {}
 
   ngOnInit(): void {
+
+    this.isLoading = true;
+
+    //themes
+    this.isDarkTheme = this.themeService.isDarkTheme();
+    this.themeService.isDarkTheme();
+
     this.token = localStorage.getItem('token'); // Retrieve token from local storage
     if (this.token) {
       this.fetchCarCountData();
@@ -40,6 +53,10 @@ export class DashboardComponent {
     } else {
       console.error('Token is not available.');
     }
+    //disable load
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   }
 
   fetchCarCountData() {

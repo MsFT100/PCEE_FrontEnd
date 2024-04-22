@@ -11,6 +11,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert">.</button>
             {{ successMessage }}
         </div>
+        <div class="loading-overlay" *ngIf="isLoading">
+            <div class="spinner-border" style="width: 5rem; height: 5rem;"></div>
+            <!-- Or any other loading indicator/message -->
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12" id="vehicle-detail-view">
 

@@ -7,6 +7,10 @@
         <div *ngIf="successMessage" class="alert alert-success">
             {{ successMessage }}
         </div>
+        <div class="loading-overlay" *ngIf="isLoading">
+            <div class="spinner-border" ></div>
+            <!-- Or any other loading indicator/message -->
+        </div>
         <div>
             <button class="btn btn-outline-primary my-3 mx-4" (click)="isProfile = false; isAccount = true; isBot = false">Account</button>
             <button class="btn btn-outline-primary my-3 mx-4" (click)="isProfile = true; isAccount = false; isBot = false">Profile</button>     

@@ -247,6 +247,7 @@ export class VehicleDetailViewComponent {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   currentDate: string | null = null;
+  isLoading: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -288,7 +289,7 @@ export class VehicleDetailViewComponent {
   
   ngOnInit(): void {
 
-    
+    this.isLoading = true;
     //register for messages
     this.route.queryParams.subscribe(params => {
       this.successMessage = params['successMessage'] || null;
@@ -313,7 +314,10 @@ export class VehicleDetailViewComponent {
       console.error('Token is not available.');
     }
     
-
+     //disable load
+     setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   }
 
   ngOnDestroy(): void {

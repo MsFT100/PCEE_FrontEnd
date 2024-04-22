@@ -42,4 +42,41 @@
     flex: 1; /* Each item takes equal space */
 }
 
+.loading-overlay {
+  left: 0 !important;
+  top: 0 !important;
+  z-index: 10000 !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: fixed !important;
+  background-color: rgba(0,0,0,0.9) !important; /* Darken the background */
+  cursor: pointer !important;
+  visibility: visible !important;
+  transition: visibility 0s, opacity 0.4s linear !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: wait !important;
+  transform: translateY(100%); /* Initially move the overlay below */
+  animation: slideUp 0.4s forwards; /* Apply slide up animation */
+}
 
+@keyframes slideUp {
+  from {
+    transform: translateY(100%); /* Start from below */
+    opacity: 0; /* Initially invisible */
+  }
+  to {
+    transform: translateY(0); /* Slide up to original position */
+    opacity: 1; /* Fade in */
+  }
+}
+.custom-spinner {
+  width: 5rem;
+  height: 5rem;
+  
+}
+
+.my-overlay i.fa.fa-spinner.fa-spin, .spinner-big {
+  font-size: 100px !important;
+}

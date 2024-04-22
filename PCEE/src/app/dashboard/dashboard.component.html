@@ -1,9 +1,13 @@
-<section id="dashboard">
-    <div class="container">
+<section id="dashboard" [class.bg-light]="!isDarkTheme" [class.bg-dark]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
+    <div class="container" >
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Home</li>
             </ol>
+        </div>
+        <div class="loading-overlay" *ngIf="isLoading">
+            <div class="spinner-border" ></div>
+            <!-- Or any other loading indicator/message -->
         </div>
         <div class="page-header">
             <h1>Welcome to your dashboard</h1>

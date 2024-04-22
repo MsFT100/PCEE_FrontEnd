@@ -32,8 +32,19 @@ export class AccountSettingsComponent {
   subscription: boolean = false;
   systemUpdates: boolean = false;
 
+  isLoading = false;
   constructor(private http: HttpClient,  private router: Router) { }
 
+
+  ngOnInit(): void {
+
+    this.isLoading = true;
+    
+    //disable load
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
+  }
   onSubmitAccount() {
     const token = localStorage.getItem('token');
 

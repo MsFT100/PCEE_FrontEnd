@@ -4,6 +4,10 @@
 
 @import "./bootstrap/bootstrap.min.css";*/
 
+.container {
+  /*height: 100vh;*/
+}
+
 .main {
     /*background-image: url('path/to/your/image.jpg');*/
     
@@ -71,7 +75,7 @@
     opacity: 1; /* Fade in */
   }
 }
-.custom-spinner {
+.spinner-border {
   width: 5rem;
   height: 5rem;
   

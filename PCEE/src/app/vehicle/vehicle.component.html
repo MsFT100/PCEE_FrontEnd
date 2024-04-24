@@ -1,9 +1,7 @@
 <section id="vehicle-dashboard">
     <div class="container" [class.bg-light]="!isDarkTheme" [class.bg-dark]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
         <div class="breadcrumbs">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Home</li>
-            </ol>
+            
             <div *ngIf="successMessage" class="alert alert-dismissible alert-success">
                 <button type="button" class="btn-close" data-bs-dismiss="alert">.</button>
                 {{ successMessage }}

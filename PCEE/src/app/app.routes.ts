@@ -11,6 +11,7 @@ import { VehicleDetailViewComponent } from './vehicle-detail-view/vehicle-detail
 import { AddFuelComponent } from './add-fuel/add-fuel.component';
 import { VehicleSubscriptionComponent } from './vehicle-subscription/vehicle-subscription.component';
 import { AddServiceComponent } from './add-service/add-service.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 export const routes: Routes = [
     /*{path: 'vehicle-detail-view/:id',
@@ -18,6 +19,7 @@ export const routes: Routes = [
     {path: 'vehicle-detail-view/:id', component: VehicleDetailViewComponent},
     {path: 'add-fuel/:id', component: AddFuelComponent},
     {path: 'add-service/:id', component: AddServiceComponent},
+    {path: 'contact-us', component: ContactUsComponent},
     {path: 'subscriptions/:id', component: VehicleSubscriptionComponent},
     {path: 'home', component:WelcomePageComponent},
     {path: 'signin', component: SigninComponent},

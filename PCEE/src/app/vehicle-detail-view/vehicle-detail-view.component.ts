@@ -5,6 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { saveAs } from 'file-saver';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import PdfPrinter from 'pdfmake';
+import csvtojson from 'csvtojson';
+import { wrap } from 'module';
+
 interface Vehicle {
   id: string;
   model: string;
@@ -227,8 +234,6 @@ interface VehicleFormErrorData {
 })
 export class VehicleDetailViewComponent {
 
-
-
   private readonly POLLING_INTERVAL = 30000; // 10 seconds
   private pollSubscription: Subscription | undefined;
   formData: any = {};
@@ -249,6 +254,7 @@ export class VehicleDetailViewComponent {
   currentDate: string | null = null;
   isLoading: boolean = false;
 
+  
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -407,7 +413,6 @@ export class VehicleDetailViewComponent {
       );
   }
   
-
   fetchVehicleData(){
     const headers = new HttpHeaders({
       'Authorization': `Token ${this.token}`
@@ -483,6 +488,69 @@ export class VehicleDetailViewComponent {
       device_sim: '',
       protocol_header: ''
     };
+  }
+
+
+  DownloadReport(): void{
+    
+
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${this.token}`
+    });
+    const url = `https://pcee.xyz/service/${this.vehicleId}/?download=true`;
+
+    this.http.get(url, { headers: headers, responseType: 'text' })
+    .subscribe(csvData => {
+      // Convert CSV data to JSON
+      csvtojson().fromString(csvData).then((jsonData: any[]) => {
+        console.log(jsonData); // Verify if data is properly converted
+
+        if (jsonData) {
+          // Process the data and generate the PDF
+          const docDefinition = {
+            content: [
+              { text: 'Service Data', style: 'header' },
+              { text: 'Below is a summary for the services recorded', style: 'header' },
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+                  body: [
+                    ['Type', 'next service at', 'last service at', 'mileage', 'service provider', 'cost', 'comment', 'status'],
+                    ...jsonData.map(item => [ item.service_type, item.next_service_date, item.last_service_date, item.mileage, item.service_provider, item.cost, item.comment, item.status])
+                  ] 
+                },
+                style: 'data'
+              }
+            ],
+            styles: {
+              header: { fontSize: 18, bold: true },
+              data: { fontSize: 10, noWrap: false }
+            }
+          };
+
+          console.log(docDefinition); // Log the docDefinition object
+          // Generate the PDF
+          pdfMake.createPdf(docDefinition).download('service.pdf');
+
+          // Download CSV
+          const blob = new Blob([csvData], { type: 'text/csv' });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'service.csv';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        }else{
+          console.log('No data available to generate PDF');
+        }
+
+      });
+    });
+      
+
   }
   
   private stopPolling(): void {

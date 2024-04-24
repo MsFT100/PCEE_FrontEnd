@@ -1,15 +1,13 @@
 
-  <nav class="navbar navbar-expand-md bg-dark" [class.bg-light]="!isDarkTheme" [class.bg-dark]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
+  <nav class="navbar navbar-expand-lg bg-primary" [class.bg-dark]="!isDarkTheme" [class.bg-primary]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">PCEE</a>
+      <a class="navbar-brand" href="#" style="background-image: url('src/assets/images/logo.png');">PCEE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarColor02">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <button class="btn btn-light" (click)="toggleTheme()">Toggle Theme</button>
-          </li>
+          
           <li class="nav-item" *ngIf="!isLoggedIn">
             <a class="nav-link"  href="/signin">Sign In</a>
           </li>
@@ -31,6 +29,12 @@
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
             <button class="btn btn-primary" (click)="logout()">Logout</button>
+          </li>
+          
+          <li class="nav-item">
+            <i class="material-icons" (click)="toggleTheme()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Change Theme">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8V16Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12 4V8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16V20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z" fill="currentColor" /></svg>
+            </i>
           </li>
         </ul>
       </div>

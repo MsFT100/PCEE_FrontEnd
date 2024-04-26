@@ -4,9 +4,7 @@
 
 @import "./bootstrap/bootstrap.min.css";*/
 
-.container {
-  /*height: 100vh;*/
-}
+
 
 .main {
     /*background-image: url('path/to/your/image.jpg');*/
@@ -53,7 +51,7 @@
   width: 100% !important;
   height: 100% !important;
   position: fixed !important;
-  background-color: rgba(0,0,0,0.9) !important; /* Darken the background */
+  background-color: rgba(0, 0, 0, 0.945) !important; /* Darken the background */
   cursor: pointer !important;
   visibility: visible !important;
   transition: visibility 0s, opacity 0.4s linear !important;
@@ -84,3 +82,22 @@
 .my-overlay i.fa.fa-spinner.fa-spin, .spinner-big {
   font-size: 100px !important;
 }
+.background-image-container {
+  background: linear-gradient(to bottom, rgba(3, 33, 71, 0.5), rgba(0, 0, 0, 0.8));
+  /*background-image: url('assets/images/bg1.jpg');
+  background-size: cover; /* This property ensures the background image covers the entire container */
+  background-repeat: no-repeat;
+}
+.navbar-nav .nav-link {
+  color: #fff; /* White text */
+}
+.nav-item.active .nav-link {
+  color: #f00; /* Example: Red color for the active link */
+}
+.container-fluid {
+  height: 100%; /* Set height of container, row, and column to 100% */
+}
+
+
+
+

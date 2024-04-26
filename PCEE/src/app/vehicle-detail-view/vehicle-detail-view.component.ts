@@ -11,6 +11,10 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import PdfPrinter from 'pdfmake';
 import csvtojson from 'csvtojson';
 import { wrap } from 'module';
+import { GpsService } from '../GPSService';
+
+
+declare var google: any;
 
 interface Vehicle {
   id: string;
@@ -254,11 +258,15 @@ export class VehicleDetailViewComponent {
   currentDate: string | null = null;
   isLoading: boolean = false;
 
-  
+  //map
+  map: any;
+  gpsData: any;
+
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
+    private gpsService: GpsService
     //private vehicleData: VehicleComponent // Replace 'VehicleService' with your actual service
   ) { }
 
@@ -313,6 +321,7 @@ export class VehicleDetailViewComponent {
       this.fetchRepairData();
       this.fetchVehicleData();
       this.fetchServiceData();
+      this.fetchGPSData();
       this.startPolling();
       
       this.currentDate = this.getCurrentDate();
@@ -421,7 +430,7 @@ export class VehicleDetailViewComponent {
     this.http.get<VehicleData>(url, { headers })
       .subscribe(
         (response: VehicleData) => {
-          console.log('Response:', response);
+          //console.log('Response:', response);
           this.vehicleData = response;
         },
         error => {
@@ -490,6 +499,42 @@ export class VehicleDetailViewComponent {
     };
   }
 
+  //GPS Data
+  initMap(): void {
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 0, lng: 0 },
+      zoom: 8
+    });
+  }
+
+  fetchGPSData(): void {
+    setInterval(() => {
+      this.gpsService.getGpsData(this.vehicleId || '', this.token || '')
+      .subscribe(data => {
+        this.gpsData = data;
+        console.log(this.gpsData); // Handle the GPS data here
+        this.initializeMap(data.latitude, data.longitude);
+      }, error => {
+        console.error('Failed to fetch GPS data:', error);
+      });
+    }, 10000); // Fetch data every 10 seconds
+  }
+  //initialise the map
+  initializeMap(latitude: number, longitude: number): void {
+    const mapOptions = {
+      center: { lat: latitude, lng: longitude },
+      zoom: 8, // Adjust the initial zoom level as needed
+    };
+  
+    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  
+    // Add a marker at the specified latitude and longitude
+    const marker = new google.maps.Marker({
+      position: { lat: latitude, lng: longitude },
+      map: map,
+    });
+  }
+  
 
   DownloadReport(): void{
     
@@ -551,6 +596,53 @@ export class VehicleDetailViewComponent {
     });
       
 
+  }
+  DownloadRepairReport(): void{
+    const docDefinition = {
+      content: [
+        { text: 'Mechanical Report', style: 'header' },
+        { text: 'Date: ' + new Date().toDateString(), style: 'subheader' },
+        { text: 'Vehicle Information', style: 'subheader' },
+        { text: 'VIN: ____________________',style: 'infoItem'  },
+        { text: 'Mileage: ____________________' },
+        { text: 'Model: ____________________' },
+        { text: 'Transmission: ____________________' },
+        { text: 'Engine: ____________________' },
+        { text: 'Transmission:', style: 'checkbox' },
+        { text: 'Satisfied   Not Satisfied   Somewhat Satisfied' },
+        { text: '[ ]              [ ]                [ ] ' },
+        { text: 'Lights:', style: 'checkbox' },
+        { text: '[ ] Satisfied   [ ] Not Satisfied   [ ] Somewhat Satisfied' },
+        { text: 'Suspension:', style: 'checkbox' },
+        { text: '[ ] Satisfied   [ ] Not Satisfied   [ ] Somewhat Satisfied' },
+        { text: 'Battery:', style: 'checkbox' },
+        { text: '[ ] Satisfied   [ ] Not Satisfied   [ ] Somewhat Satisfied' },
+        { text: 'Windshield:', style: 'checkbox' },
+        { text: '[ ] Satisfied   [ ] Not Satisfied   [ ] Somewhat Satisfied' },
+        { text: 'Air Conditioning:', style: 'checkbox' },
+        { text: '[ ] Satisfied   [ ] Not Satisfied   [ ] Somewhat Satisfied' },
+        { text: 'Inspector Name: ____________________' },
+        { text: 'Date: ____________________' },
+        { text: 'Comments:', style: 'subheader' },
+        { text: '_____________________________________________________________' }
+      ],
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true
+        },
+        subheader: {
+          fontSize: 18,
+          bold: true,
+          //margin: [0, 15, 0, 15] // top, right, bottom, left
+        },
+        checkbox: {
+           // Adjust margin as needed
+        }
+      }
+    };
+
+    pdfMake.createPdf(docDefinition).download('mechanical report.pdf');
   }
   
   private stopPolling(): void {

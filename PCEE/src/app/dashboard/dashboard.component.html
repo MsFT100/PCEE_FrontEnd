@@ -1,10 +1,11 @@
-<div class="container" [class.bg-light]="!isDarkTheme" [class.bg-dark]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
+<div class="container mt-3">
     
     <div class="loading-overlay" *ngIf="isLoading">
         <div class="spinner-border" ></div>
         <!-- Or any other loading indicator/message -->
     </div>
-    <div class="page-header">
+    
+    <div class="page mt-5">
         <h3>Welcome to your dashboard</h3>
         <div class="card">
             <div class="card-body">
@@ -22,19 +23,23 @@
                             <div class="card-header">OverView</div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="card">
+                                    <div class="col-md-3 d-flex">
+                                        <div class="card flex-fill">
+                                            <div class="card">
                                             
-                                            <div class="card-body">
-                                                <div class="card-title">CARS</div>
-                                                <p class="card-text">Number of Cars: {{ carCountData?.car_count }}</p>
-                                                <p class="card-text">Moving Cars: {{ carCountData?.moving }}</p>
-                                                <p class="card-text">Idle Cars: {{ carCountData?.idle }}</p>
+                                                <div class="card-body">
+                                                    <div class="card-title">CARS</div>
+                                                    <p class="card-text">Number of Cars: {{ carCountData?.car_count }}</p>
+                                                    <p class="card-text">Moving Cars: {{ carCountData?.moving }}</p>
+                                                    <p class="card-text">Idle Cars: {{ carCountData?.idle }}</p>
+                                                </div>
                                             </div>
-                                        </div>                              
+                                        </div>
+                                                                      
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="card">
+                                    <div class="col-md-3 d-flex">
+                                        <div class="card flex-fill">
+                                            
                                             
                                             <div class="card-body">
     
@@ -48,10 +53,12 @@
                                                 </li>
                                                 </ul>-->
                                             </div>
-                                            </div>     
+                                            
+                                        </div>
+                                             
                                     </div>    
-                                    <div class="col-md-6">
-                                        <div class="card">
+                                    <div class="col-md-6 d-flex">
+                                        <div class="card flex-fill">
                                             
                                             <div class="card-body">
     
@@ -60,7 +67,8 @@
                                                 <p class="card-text">Defects: {{ defectData?.total_fault_codes }}</p>
                                                 
                                             </div>
-                                        </div>     
+                                            
+                                        </div>  
                                     </div>   
                                 </div>
                             </div>
@@ -101,7 +109,7 @@
                                 <div class="card-header">Monthly Cost</div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 mb-3">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="card-title" >Fuel Cost</div>
@@ -109,7 +117,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 mb-3">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="card-title" >Repair Cost</div>

@@ -1,12 +1,12 @@
-<div class="container" [class.bg-light]="!isDarkTheme" [class.bg-dark]="isDarkTheme" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
-    <div class="row justify-content-center mt-5">
-      <div class="col-md-5">
+<div class="container">
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-8">
         <div *ngIf="errorMessage" class="alert alert-danger">
           {{errorMessage}}
         </div>
   
         <div>
-          <a [routerLink]="['/vehicle-detail-view', vehicleId]" class="btn btn-outline-primary my-3">Go Back</a>
+          <a [routerLink]="['/vehicle-detail-view', vehicleId]" class="btn btn-secondary my-3">Go Back</a>
         </div>
   
         <div class="card">
@@ -22,24 +22,24 @@
               </div>
   
               <div class="form-group">
-                <label for="service_type">Service Type</label>
+                <label class="form-label" for="service_type">Service Type</label>
                 <input type="text" class="form-control" id="service_type" [(ngModel)]="formData.service_type" name="service_type">
               </div>
               <div class="form-group">
-                <label for="mileage">Mileage</label>
+                <label class="form-label" for="mileage">Mileage</label>
                 <input type="text" class="form-control" id="mileage" [(ngModel)]="formData.mileage" name="mileage">
               </div>
               <div class="form-group">
-                <label for="cost">Cost</label>
+                <label class="form-label" for="cost">Cost</label>
                 <input type="number" min="0" class="form-control" id="cost" [(ngModel)]="formData.cost" name="cost">
               </div>
               <div class="form-group">
-                <label for="interval">Interval</label>
+                <label class="form-label" for="interval">Interval</label>
                 <input type="number" min="1" class="form-control" id="interval" [(ngModel)]="formData.interval" name="interval">
               </div>
   
               <div class="form-group">
-                <label for="comments">Comments</label>
+                <label  for="comments">Comments</label>
                 <textarea type="text" class="form-control" id="comments" [(ngModel)]="formData.comments" name="comments"></textarea>
               </div>
   

@@ -27,8 +27,15 @@ interface ErrorResponse {
 export class SigninComponent {
   formData: any = {};
   errorMessage: string | null = null;
+  
+
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  togglePasswordVisibility(event: any) {
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    passwordInput.type = event.target.checked ? 'text' : 'password';
+  }
 
   onSubmit() {
     this.http.post<SigninResponse>('https://pcee.xyz/api/login/', this.formData)

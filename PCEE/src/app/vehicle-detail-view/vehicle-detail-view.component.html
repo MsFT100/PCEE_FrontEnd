@@ -1,7 +1,7 @@
 <section id="vehicle-detail-view">
     <div class="container">   
         <div>
-            <a routerLink="/vehicle" class="btn btn-outline-primary my-3 mx-4">Go Back</a>
+            <a routerLink="/vehicle" class="btn btn-secondary my-3 mx-4">Go Back</a>
         </div>
         <div *ngIf="successMessage" class="alert alert-dismissible alert-success">
             <button type="button" class="btn-close" data-bs-dismiss="alert">.</button>
@@ -40,8 +40,11 @@
                               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
                               <div class="dropdown-menu">
                                 <h5 class="dropdown-item">Download Reports</h5>
-                                <button class="dropdown-item" href="#" (click)="DownloadReport()">General Reports</button>
-                                <a class="dropdown-item" href="#">Payment And subscriptions Report</a>
+                                <button class="dropdown-item" href="#" (click)="DownloadReport()">Service Reports</button>
+                                <!--<button class="dropdown-item" href="#" (click)="DownloadRepairReport()">Mechanical Inspection Report</button>-->
+                                <a class="dropdown-item" href="assets/PDF/Mechanical Inspection Report.pdf" download="Mechanical Inspection Report.pdf">Download Mechanical Inspection PDF</a>
+
+                                <!--<a class="dropdown-item" href="#">Payment And subscriptions Report</a>-->
                               </div>
                             </li>
                         </ul>
@@ -89,8 +92,8 @@
                                         <div class="card border-secondary mb-3">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <div class="card border-danger mb-3" style="max-width: 30rem;">
+                                                    <div class="col d-flex">
+                                                        <div class="card border-danger mb-3 flex-fill" style="max-width: 30rem;">
                                                             <div class="card-header">Errors</div>
                                                             <div class="card-body">
                                                             <h4 class="card-title">{{ vehicleData?.['error codes']?.fault_code }}</h4>
@@ -99,8 +102,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col">
-                                                        <div class="card border-warning mb-3" style="max-width: 30rem;">
+                                                    <div class="col d-flex">
+                                                        <div class="card border-warning mb-3 flex-fill " style="max-width: 30rem;">
                                                             <div class="card-header">Anomaly</div>
                                                             <div class="card-body">
                                                             <h4 class="card-title">{{ vehicleData?.['error codes']?.fault_code }}</h4>
@@ -133,8 +136,9 @@
                                             </div>
                                             <div class="card-body">
                                                 <div id="map">
+                                                    
                                                     <div class="ratio ratio-16x9">
-                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32844.99850210218!2d36.92014577280778!3d-1.3286163527029216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f129102505cef%3A0xefc58e7ef0660bf2!2sJomo%20Kenyatta%20International%20Airport!5e0!3m2!1sen!2ske!4v1713476878480!5m2!1sen!2ske" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                        <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32844.99850210218!2d36.92014577280778!3d-1.3286163527029216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f129102505cef%3A0xefc58e7ef0660bf2!2sJomo%20Kenyatta%20International%20Airport!5e0!3m2!1sen!2ske!4v1713476878480!5m2!1sen!2ske" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
                                                     </div>
                                                 </div>
                                             </div>

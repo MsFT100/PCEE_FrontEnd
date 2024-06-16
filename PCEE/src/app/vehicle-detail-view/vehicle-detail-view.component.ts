@@ -272,7 +272,7 @@ export class VehicleDetailViewComponent {
 
   deleteVehicle() {
     // Construct the URL with the vehicleId
-    const url = `https://pcee.xyz/api/vehicles/${this.vehicleId}/request-vd`;
+    const url = `https://www.pcee.xyz/api/vehicles/${this.vehicleId}/request-vd`;
 
     // Set the headers with the authorization token
     const headers = new HttpHeaders({
@@ -373,7 +373,7 @@ export class VehicleDetailViewComponent {
       'Authorization': `Token ${this.token}`
     });
     
-    const url = `https://pcee.xyz/service/repair/${this.vehicleId}`;
+    const url = `https://www.pcee.xyz/service/repair/${this.vehicleId}`;
     this.http.get<RepairsCurrentCar[]>(url, { headers })
       .subscribe(
         (response: RepairsCurrentCar[]) => {
@@ -390,7 +390,7 @@ export class VehicleDetailViewComponent {
       'Authorization': `Token ${this.token}`
     });
     
-    const url = `https://pcee.xyz/service/repair/${this.vehicleId}`;
+    const url = `https://www.pcee.xyz/service/repair/${this.vehicleId}`;
     this.http.get<RepairsCurrentCar[]>(url, { headers })
       .subscribe(
         (response: RepairsCurrentCar[]) => {
@@ -407,7 +407,7 @@ export class VehicleDetailViewComponent {
       'Authorization': `Token ${this.token}`
     });
   
-    const url = `https://pcee.xyz/service/${this.vehicleId}`;
+    const url = `https://www.pcee.xyz/service/${this.vehicleId}`;
     this.http.get<Services>(url, { headers })
       .subscribe(
         (response: Services) => {
@@ -426,7 +426,7 @@ export class VehicleDetailViewComponent {
     const headers = new HttpHeaders({
       'Authorization': `Token ${this.token}`
     });
-    const url = `https://pcee.xyz/api/vehicles/${this.vehicleId}`;
+    const url = `https://www.pcee.xyz/api/vehicles/${this.vehicleId}`;
     this.http.get<VehicleData>(url, { headers })
       .subscribe(
         (response: VehicleData) => {
@@ -445,7 +445,7 @@ export class VehicleDetailViewComponent {
     });
   
     if (this.token) {
-      const url = `https://pcee.xyz/api/vehicles/${this.vehicleId}/request-vu`;
+      const url = `https://www.pcee.xyz/api/vehicles/${this.vehicleId}/request-vu`;
   
       this.http.patch<VehicleFormErrorData>(url, this.formData, { headers })
         .subscribe(
@@ -542,7 +542,7 @@ export class VehicleDetailViewComponent {
     const headers = new HttpHeaders({
       'Authorization': `Token ${this.token}`
     });
-    const url = `https://pcee.xyz/service/${this.vehicleId}/?download=true`;
+    const url = `https://www.pcee.xyz/service/${this.vehicleId}/?download=true`;
 
     this.http.get(url, { headers: headers, responseType: 'text' })
     .subscribe(csvData => {
@@ -654,29 +654,3 @@ export class VehicleDetailViewComponent {
   
  
 }
-//google
-    /*this.loadGoogleMapsScript(() => {
-      // Initialize and add the map
-      const location = { lat: 51.5074, lng: -0.1278 }; // Example coordinates for London
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 12,
-        center: location,
-      });
-
-      // Add marker
-      const marker = new google.maps.Marker({
-        position: location,
-        map: map,
-      });
-    });
-    
-    }
-    // Initialize and add the map
-    private loadGoogleMapsScript(callback: () => void) {
-      const script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';
-      script.async = true;
-      script.defer = true;
-      script.onload = callback;
-      document.head.appendChild(script);
-    }*/

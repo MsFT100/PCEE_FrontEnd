@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GpsService {
-  private apiUrl = 'https://pcee.xyz/api/vehicles/';
+  private apiUrl = 'https://www.pcee.xyz/api/vehicles/';
 
   constructor(private http: HttpClient) { }
 

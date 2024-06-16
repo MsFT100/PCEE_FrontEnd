@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ThemeService } from '../themeService';
+import { LocalStorageService } from '../LocalStorageService'; // Import the service
 
 
 @Component({
@@ -22,8 +23,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router,
      private cdr: ChangeDetectorRef,
+     private localStorageService: LocalStorageService,
      private themeService: ThemeService) {}
-  
+    
   
  
   ngOnInit(): void {
@@ -41,7 +43,8 @@ export class HeaderComponent implements OnInit {
     //window.location.reload();
   }
   checkLoginStatus(): void {
-    const token = localStorage.getItem('token');
+    //const token = localStorage.getItem('token');
+    const token = this.localStorageService.getItem('token');
     this.isLoggedIn = !!token;
     this.cdr.detectChanges(); // Trigger change detection
   }

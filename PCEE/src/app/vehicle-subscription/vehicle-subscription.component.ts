@@ -74,7 +74,7 @@ export class VehicleSubscriptionComponent {
       'Authorization': `Token ${this.token}`
     });
     
-    const url = `https://pcee.xyz/service/repair/${this.vehicleId}`;
+    const url = `https://www.pcee.xyz/service/repair/${this.vehicleId}`;
     this.http.get<Subscription>(url, { headers })
       .subscribe(
         (response: Subscription) => {

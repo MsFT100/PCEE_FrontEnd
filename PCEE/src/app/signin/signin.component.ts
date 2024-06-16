@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../LocalStorageService'; // Import the service
 
 interface SigninResponse {
   token: string;
@@ -17,7 +18,7 @@ interface ErrorResponse {
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [ 
+  imports: [
     FormsModule,
     CommonModule
   ],
@@ -27,10 +28,8 @@ interface ErrorResponse {
 export class SigninComponent {
   formData: any = {};
   errorMessage: string | null = null;
-  
 
-
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService) {}
 
   togglePasswordVisibility(event: any) {
     const passwordInput = document.getElementById('password') as HTMLInputElement;
@@ -38,14 +37,17 @@ export class SigninComponent {
   }
 
   onSubmit() {
-    this.http.post<SigninResponse>('https://pcee.xyz/api/login/', this.formData)
+    this.errorMessage = null;  // Reset the error message on submit
+    if (!this.formData.username || !this.formData.password) {
+      this.errorMessage = 'Please fill out the form correctly.';
+      return;
+    }
+
+    this.http.post<SigninResponse>('https://www.pcee.xyz/api/login/', this.formData)
       .subscribe(
         (response: SigninResponse) => {
           console.log('Sign-in successful!', response);
-          // Save token to local storage or session storage
-          localStorage.setItem('token', response.token);
-
-          // Redirect to dashboard or any other page after successful sign-in
+          this.localStorageService.setItem('token', response.token); // Use the service
           this.router.navigate(['/dashboard']);
         },
         (error: HttpErrorResponse) => {

@@ -53,7 +53,7 @@ export class VehicleFormComponent {
         
       });
 
-      this.http.post<VehicleFormErrorData>('https://pcee.xyz/api/vehicles/', this.formData, { headers })
+      this.http.post<VehicleFormErrorData>('https://www.pcee.xyz/api/vehicles/', this.formData, { headers })
         .subscribe(
           response => {
             console.log('Vehicle added successfully:', response);

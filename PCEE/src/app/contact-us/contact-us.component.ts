@@ -36,7 +36,7 @@ export class ContactUsComponent {
     if (token) {
       
       console.log(this.formData);
-      const url = `https://pcee.xyz/support/email/`;
+      const url = `https://www.pcee.xyz/support/email/`;
   
       this.http.post(url, this.formData, { headers })
         .subscribe(

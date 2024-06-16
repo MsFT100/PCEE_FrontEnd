@@ -54,7 +54,7 @@ export class AccountSettingsComponent {
         
       });
 
-      this.http.post('https://pcee.xyz/api/account/request-au', this.formData, { headers })
+      this.http.post('https://www.pcee.xyz/api/account/request-au', this.formData, { headers })
         .subscribe(
           response => {
             console.log('Vehicle added successfully:', response);
@@ -91,7 +91,7 @@ export class AccountSettingsComponent {
         
       });
 
-      this.http.post('https://pcee.xyz/api/account/request-au', this.formData, { headers })
+      this.http.post('https://www.pcee.xyz/api/account/request-au', this.formData, { headers })
         .subscribe(
           response => {
             console.log('Vehicle added successfully:', response);
@@ -129,7 +129,7 @@ export class AccountSettingsComponent {
         
       });
 
-      this.http.post('https://pcee.xyz/api/account/request-au', this.formData, { headers })
+      this.http.post('https://www.pcee.xyz/api/account/request-au', this.formData, { headers })
         .subscribe(
           response => {
             console.log('Vehicle added successfully:', response);

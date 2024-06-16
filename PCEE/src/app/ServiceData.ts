@@ -11,14 +11,14 @@ export class ServiceData {
 
   getFuelData(year: number, token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
-    return this.http.get<any>(`https://pcee.xyz/api/vehicles/fuel-h?year=${year}`, { headers });
+    return this.http.get<any>(`https://www.pcee.xyz/api/vehicles/fuel-h?year=${year}`, { headers });
   }
   getFuelD(token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
-    return this.http.get<any>(`https://pcee.xyz/api/vehicles/fuel-h`, { headers });
+    return this.http.get<any>(`https://www.pcee.xyz/api/vehicles/fuel-h`, { headers });
   }
   getRepairData(token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
-    return this.http.get<any>(`https://pcee.xyz/service/repair-costs/`, { headers });
+    return this.http.get<any>(`https://www.pcee.xyz/service/repair-costs/`, { headers });
   }
 }

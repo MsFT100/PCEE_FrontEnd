@@ -82,7 +82,7 @@ export class VehicleComponent {
       'Authorization': `Token ${this.token}`
     });
 
-    this.http.get<CarCountResponse>('https://pcee.xyz/api/vehicles/car-count', { headers })
+    this.http.get<CarCountResponse>('https://www.pcee.xyz/api/vehicles/car-count', { headers })
       .subscribe(
         (response: CarCountResponse) => {
           this.carCountData = response;
@@ -98,7 +98,7 @@ export class VehicleComponent {
       'Authorization': `Token ${this.token}`
     });
     
-    this.http.get<Vehicle[]>('https://pcee.xyz/api/vehicles', { headers })
+    this.http.get<Vehicle[]>('https://www.pcee.xyz/api/vehicles', { headers })
       .subscribe(
         (response: Vehicle[]) => {
           this.vehicles = response;
@@ -117,7 +117,7 @@ export class VehicleComponent {
         'Authorization': `Token ${token}`
       });
 
-      this.http.post('https://pcee.xyz/api/vehicles/', this.formData, { headers })
+      this.http.post('https://www.pcee.xyz/api/vehicles/', this.formData, { headers })
         .subscribe(
           response => {
             console.log('Vehicle added successfully:', response);

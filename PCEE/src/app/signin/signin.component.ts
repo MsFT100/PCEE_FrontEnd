@@ -28,6 +28,7 @@ interface ErrorResponse {
 export class SigninComponent {
   formData: any = {};
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService) {}
 
@@ -37,21 +38,24 @@ export class SigninComponent {
   }
 
   onSubmit() {
+    this.isLoading = true;
     this.errorMessage = null;  // Reset the error message on submit
     if (!this.formData.username || !this.formData.password) {
       this.errorMessage = 'Please fill out the form correctly.';
       return;
     }
 
-    this.http.post<SigninResponse>('https://www.pcee.xyz/api/login/', this.formData)
+    this.http.post<SigninResponse>('https://pcee.xyz/api/login/', this.formData)
       .subscribe(
         (response: SigninResponse) => {
           console.log('Sign-in successful!', response);
           this.localStorageService.setItem('token', response.token); // Use the service
+          this.isLoading = false; // Stop loading
           this.router.navigate(['/dashboard']);
         },
         (error: HttpErrorResponse) => {
           console.error('Sign-in failed!', error);
+          this.isLoading = false; // Stop loading
           if (error && error.error) {
             const errorResponse: ErrorResponse = error.error;
             if (errorResponse.non_field_errors) {

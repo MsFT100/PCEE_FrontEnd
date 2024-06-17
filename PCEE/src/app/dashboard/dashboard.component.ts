@@ -5,7 +5,7 @@ import { ThemeService } from '../themeService';
 import { Chart } from 'chart.js/auto';
 import { ServiceData } from '../ServiceData';
 import { RouterModule } from '@angular/router';
-
+import { LocalStorageService } from '../LocalStorageService'; // Import the service
 
 interface CarCountResponse {
   car_count: number;
@@ -68,13 +68,13 @@ export class DashboardComponent {
   constructor(private http: HttpClient,
     private themeService : ThemeService,
     private fuelDataService: ServiceData,
-    private repairDataServive: ServiceData
-
+    private repairDataServive: ServiceData,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
 
-    this.token = localStorage.getItem('token');
+    this.token = this.localStorageService.getItem('token');
     this.isLoading = true;
 
     //themes
@@ -87,7 +87,7 @@ export class DashboardComponent {
     const year = today.getFullYear();
 
     
-    this.token = localStorage.getItem('token'); // Retrieve token from local storage
+    this.token = this.localStorageService.getItem('token'); // Retrieve token from local storage
     if (this.token) {
       this.fetchCarCountData();
       this.fetchServiceData();
@@ -115,7 +115,7 @@ export class DashboardComponent {
       'Authorization': `Token ${this.token}`
     });
 
-    this.http.get<DefectResponse>('https://www.pcee.xyz/api/vehicles/request-fc', { headers })
+    this.http.get<DefectResponse>('https://pcee.xyz/api/vehicles/request-fc', { headers })
       .subscribe(
         (response: DefectResponse) => {
           this.defectData = response;
@@ -134,7 +134,7 @@ export class DashboardComponent {
       'Authorization': `Token ${this.token}`
     });
     
-    this.http.get<ServiceCar[]>('https://www.pcee.xyz/service/history', { headers })
+    this.http.get<ServiceCar[]>('https://pcee.xyz/service/history', { headers })
       .subscribe(
         (response: ServiceCar[]) => {
           this.CarServiceData = response;
@@ -155,7 +155,7 @@ export class DashboardComponent {
       'Authorization': `Token ${this.token}`
     });
 
-    this.http.get<CarCountResponse>('https://www.pcee.xyz/api/vehicles/car-count', { headers })
+    this.http.get<CarCountResponse>('https://pcee.xyz/api/vehicles/car-count', { headers })
       .subscribe(
         (response: CarCountResponse) => {
           this.carCountData = response;
@@ -176,7 +176,7 @@ export class DashboardComponent {
       'Authorization': `Token ${this.token}`
     });
 
-    this.http.get<ServicesResponse>('https://www.pcee.xyz/service/total/', { headers })
+    this.http.get<ServicesResponse>('https://pcee.xyz/service/total/', { headers })
       .subscribe(
         (response: any) => {
           this.servicesData = {

@@ -62,7 +62,7 @@ export class AddServiceComponent {
     if (token) {
       this.formData.vehicle = this.vehicleId;
       console.log(this.formData);
-      const url = `https://www.pcee.xyz/service/request-service/`;
+      const url = `https://pcee.xyz/service/request-service/`;
   
       this.http.post(url, this.formData, { headers })
         .subscribe(
